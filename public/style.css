@@ -1,0 +1,43 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: #dfdfdf;
+    font-size: 1.3rem;
+}
+
+section {
+    padding: 66px 200px;
+    background: #efefef;
+    text-align: center;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.gallery > div {
+    flex: 1 1 33%;
+}
+
+.gallery img {
+    width: 100%;
+    max-height: 500px;
+}
+
+nav {
+    padding: 12px 33px;
+    display: flex;
+}
+
+nav > div {
+    flex: 1 1 50%;
+}
+
+@media only screen and (max-width: 480px) {
+    section { padding: 50px 5px; }
+
+    nav { padding: 50px 5px; }
+}
