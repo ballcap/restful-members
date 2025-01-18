@@ -67,6 +67,13 @@ button:hover {
     border: solid 2px #069;
 }
 
+footer {
+    background: #037;
+    color: #e2e2e2;
+    font-size: .8;
+    padding: 11px 7px;
+}
+
 @media only screen and (max-width: 480px) {
     section { padding: 50px 5px; }
 
