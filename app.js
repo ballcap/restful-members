@@ -3,6 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -46,6 +47,24 @@ function requireAuth(role) {
   };
 }
 
+// Registration route
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insert the user into the database with the hashed password
+    const query = 'INSERT INTO users (username, password, role) VALUES ($1, $2, $3)';
+    await pool.query(query, [username, hashedPassword, 'basic']);
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('Error registering user. Username might already be taken.');
+  }
+});
+
 // Login route
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -57,7 +76,9 @@ app.post('/login', async (req, res) => {
     if (result.rows.length > 0) {
       const user = result.rows[0];
 
-      if (user.password === password) { // For simplicity; use hashed passwords in production
+      // Compare hashed password with entered password
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (passwordMatch) {
         req.session.user = { username: user.username, role: user.role };
         const redirectPage = user.role === 'vip' ? '/member?vip=true' : '/member?vip=false';
         return res.redirect(redirectPage);
@@ -67,20 +88,6 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
-  }
-});
-
-// Registration route
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const query = 'INSERT INTO users (username, password, role) VALUES ($1, $2, $3)';
-    await pool.query(query, [username, password, 'basic']);
-    res.redirect('/');
-  } catch (err) {
-    console.error(err);
-    res.status(400).send('Error registering user. Username might already be taken.');
   }
 });
 
