@@ -84,7 +84,6 @@ app.post('/login', async (req, res) => {
         return res.redirect(redirectPage);
       }
     }
-    //res.status(403).send('Invalid username or password');
     res.status(403).send(`
       <head>
         <meta charset="UTF-8">
@@ -176,6 +175,10 @@ app.post('/reset_password', async (req, res) => {
     console.error(err);
     res.status(500).send('Error processing request');
   }
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 app.listen(3000, () => { });
