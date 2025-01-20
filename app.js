@@ -86,8 +86,24 @@ app.post('/login', async (req, res) => {
     }
     //res.status(403).send('Invalid username or password');
     res.status(403).send(`
-      <h1>Welcomeq and all</h1>
-      <p>to your doom</p>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css" />
+        <title>MyPage | Error</title>
+      </head>
+      <body>
+        <section>
+            <div>
+              <p>Invalid username or password.</p>
+              <p>Click <a href="/">here</a> to try again.</p>
+            </div>
+        </section>
+      <footer>
+        <p>Tired of bad works? Check out our work</p>
+        <p>&copy; MakiAmaa Works 2025. All rights reserved</p>
+      </footer>
+      </body>
     `);
   } catch (err) {
     console.error(err);
