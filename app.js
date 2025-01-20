@@ -132,4 +132,50 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+//Serve Forgot Password page
+app.get('/forgot_password', (req, res) => {
+  res.send(`
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/style.css" />
+      <title>Forgot Password</title>
+    </head>
+    <body>
+      <section>
+        <form method="post" action="/reset_password">
+          <h1>Forgot Password</h1>
+          <p>Enter your email to receive a reset link.</p>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="Email" required />
+          </label>
+          <button type="submit">Send Reset Link</button>
+        </form>
+      </section>
+      <footer>
+        <p>Tired of bad works? Check out our work</p>
+        <p>&copy; MakiAmaa Works 2025. All rights reserved</p>
+      </footer>
+    </body>
+  `);
+});
+
+// Reset Password Route
+app.post('/reset_password', async (req, res) => {
+  const { email } = req.body;
+  try {
+    // Placeholder logic to handle reset password
+    // TODO: Implement email sending logic for reset link
+    console.log(`Password reset request received for email: ${email}`);
+    res.send(`
+      <p>If an account exists with the provided email, a reset link has been sent.</p>
+      <p>Click <a href="/">here</a> to return to the login page.</p>
+    `);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error processing request');
+  }
+});
+
 app.listen(3000, () => { });
