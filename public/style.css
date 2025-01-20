@@ -96,4 +96,8 @@ a:hover {
     section { padding: 50px 5px; }
 
     nav { padding: 50px 5px; }
+
+    .gallery > div {
+        flex: 1 1 100%; /* Makes each div take up 100% width */
+    }
 }
