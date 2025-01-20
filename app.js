@@ -84,7 +84,11 @@ app.post('/login', async (req, res) => {
         return res.redirect(redirectPage);
       }
     }
-    res.status(403).send('Invalid username or password');
+    //res.status(403).send('Invalid username or password');
+    res.status(403).send(`
+      <h1>Welcomeq and all</h1>
+      <p>to your doom</p>
+    `);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
