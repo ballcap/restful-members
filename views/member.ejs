@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <%- include('partials/header') %>
     <title><%= role === 'vip' ? 'VIP Members' : 'Basic Members' %></title>
 </head>
 <body>
@@ -72,9 +73,6 @@
             <p>Upgrade to VIP to see exclusive content.</p>
         <% } %>
     </section>
-    <footer>
-        <p>Tired of bad works? Check out our work</p>
-        <p>&copy; MakiAmaa Works 2025. All rights reserved</p>
-    </footer>
+    <%- include('partials/footer') %>
 </body>
 </html>
